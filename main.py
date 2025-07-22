@@ -2,7 +2,6 @@ import random
 import string
 import time
 
-
 def madlibs():
     print("***** Madlibs Game *****")
     tempat1 = input("nama tempat: ")
