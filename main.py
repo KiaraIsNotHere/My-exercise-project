@@ -735,5 +735,13 @@ elif choice == '15':
     roman_2_numeric()
 elif choice == '16':
     pokemon_info()
+elif choice == '17':
+    email_slicer()
+elif choice == '18':
+    compound_interest()
+elif choice == '19':
+    concession_stand()
+elif choice == '20':
+    credit_card_validator()
 else:
     print(f"{choice} is not yet created")        
