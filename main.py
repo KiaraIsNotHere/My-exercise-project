@@ -1,21 +1,28 @@
 import random
 import string
 import time
+import requests
 listee = [
-    "1.Madlibs",
-    "2.Simple calculator",
-    "3.Weight converter",
-    "4.Temperature converter",
-    "5.Time Countdown",
-    "6.Shopping cart",
-    "7.Quiz game",
-    "8.Number Guessing",
-    "9.Rock Paper Scissors",
-    "10.Dice roller",
-    "11.Bank program",
-    "12.Slot",
-    "13.Encryption",
-    "14.Hangman Game"]
+        "1.Madlibs",
+        "2.Simple calculator",
+        "3.Weight converter",
+        "4.Temperature converter",
+        "5.Time Countdown",
+        "6.Shopping cart",
+        "7.Quiz game",
+        "8.Number Guessing",
+        "9.Rock Paper Scissors",
+        "10.Dice roller",
+        "11.Bank program",
+        "12.Slot",
+        "13.Encryption",
+        "14.Hangman Game",
+        "15.Roman to numeric",
+        "16.Pokemon Info",
+        "17.Email Slicer",
+        "18.Compund Interest Calculator",
+        "19.Concession Stand",
+        "20.Credit Card Validator"]
 for item in listee:
     print(item)
 
@@ -536,7 +543,165 @@ def hangMan():
             print("You lose")
             runnin = False
 
-choice = input("Whick project do you want to see: (1-14): ")
+def roman_2_numeric():
+    print("***** Roman to number *****")
+    numeral_input = input("enter the roman numeral input: ").upper()
+    def roman_to_int(numeral_input):
+
+        final = 0
+        if "CM" in numeral_input:
+            final += 900
+            numeral_input = numeral_input.replace("CM", "")
+        if "CD" in numeral_input:
+            final += 400
+            numeral_input = numeral_input.replace("CD", "")
+        if "XC" in numeral_input:
+            final += 90
+            numeral_input = numeral_input.replace("XC", "")
+        if "XL" in numeral_input:
+            final += 40
+            numeral_input = numeral_input.replace("XL", "")
+        if "IX" in numeral_input:
+            final += 9
+            numeral_input = numeral_input.replace("IX", "")
+        if "IV" in numeral_input:
+            final += 4
+        numeral_input = numeral_input.replace("IV", "")
+
+        for i in numeral_input:
+            if i == "M":
+                final += 1000
+            elif i == "D":
+                final += 500
+            elif i == "C":
+                final += 100
+            elif i == "L":
+                final += 50
+            elif i == "X":
+                final += 10
+            elif i == "V":
+                final += 5
+            elif i == "I":
+                final += 1
+        print("The roman numerals you entered translates to: " + str(final) + "!")
+    roman_to_int(numeral_input)
+
+def pokemon_info():
+    print("***** Pokemon Info *****")
+    base_url = "https://pokeapi.co/api/v2/"
+
+    def get_pokemon_info(name):
+        url = f"{base_url}/pokemon/{name}"
+        response = requests.get(url)
+    
+        if response.status_code == 200:
+            pokemon_data = response.json()
+            return pokemon_data
+        else:
+            print(f"failed to retrieve data {response.status_code}")
+
+    pokemon_name = input("enter pokemon name: ")
+    pokemon_info = get_pokemon_info(pokemon_name)
+
+    if pokemon_info:
+        print(f"Name   : {pokemon_info["name"].capitalize()}")
+        print(f"Id     : {pokemon_info["id"]}")
+        print(f"Height : {pokemon_info["height"]}")
+        print(f"Weight : {pokemon_info["weight"]}")
+
+def email_slicer():
+    print("******* Email Slicer *******")
+    email = input("enter your email: ")
+    username = email[:email.index("@")]
+    domain = email[:email.index("@") + 1:]
+    print(f"your username is '{username}' and domain is '{domain}'")
+
+def compound_interest():
+    while True:
+        principle = int(input("enter the principle: "))
+        if principle <= 0:
+            print("principle cant less than or equal to zero")
+        else:
+            break
+
+    while True:
+        rate = int(input("enter the rate: "))
+        if rate <= 0:
+            print("rate cant less than or equal to zero")
+        else:
+            break
+
+    while True:
+        year = int(input("enter the time (year): "))
+        if year <= 0:
+            print("year cant less than or equal to zero")
+        else:
+            break
+
+    total = principle * pow((1 + rate / 100), year)
+    print(f"Balance after {year} year is: ${total:.2f}")
+
+def concession_stand():
+    print("--------- Concession Stand ---------")
+    menu = {"pizza": 3.00,
+            "nachos": 4.50,
+            "popcorn": 6.00,
+            "fries": 2.50,
+            "chips": 1.00,
+            "pretzel": 3.50,
+            "soda": 3.00,
+            "lemonade": 4.25}
+    cart = []
+    total = 0
+
+    print("---------- Menu ----------")
+    for x, y in menu.items():
+        print(f"{x:10}: {y:.2f}")
+    print("--------------------------")
+
+    while True:
+        food = input("Enter the food (q to quit): ").lower()
+        if food == 'q':
+            break
+        elif food not in menu:
+            print(f"{food} is not on the list")
+        elif menu.get(food) is not None:
+            cart.append(food)
+
+    print("------- Your Order -------")
+    print(' - '.join(cart))
+    for x in cart:
+        total += menu.get(x)
+    print(f"\nyour total is: {total:.2f}")
+
+def credit_card_validator():
+    print("**** Credit Card Validator ****")
+    sum_odd_digits = 0
+    sum_even_digits = 0
+    total = 0
+
+    card_number = input("enter a credit card number: ")
+    card_number = card_number.replace("-","")
+    card_number = card_number.replace(" ","")
+    card_number = card_number [::-1]
+
+    for x in card_number[::2]:
+        sum_odd_digits += int(x)
+
+    for x in card_number[1::2]:
+        x = int(x) * 2
+        if x >= 10:
+            sum_even_digits += (1(x % 10))
+        else:
+            sum_even_digits += x
+
+    total = sum_even_digits + sum_odd_digits
+    if total % 10 == 0:
+        print("VALID")
+    else:
+        print("INVALID")
+
+choice = input("Whick project do you want to see: (1-15): ")
 
 if choice == '1':
     madlibs()
@@ -566,5 +731,9 @@ elif choice == '13':
     encryption()
 elif choice == '14':
     hangMan()
+elif choice == '15':
+    roman_2_numeric()
+elif choice == '16':
+    pokemon_info()
 else:
     print(f"{choice} is not yet created")        
