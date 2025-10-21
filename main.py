@@ -189,7 +189,7 @@ def numberGuessing():
         high = int(input("Enter the high number: "))
         answer = random.randint(low, high)  
         guesses = 0                         
-        print(f"Enter a number between {low} and {high}")
+        print(f"Guess a number between {low} and {high}")
 
         while True:
             tebak = input("Enter your guess: ")
