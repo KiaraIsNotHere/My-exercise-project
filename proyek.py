@@ -2,6 +2,16 @@ import random
 import string
 import time
 import requests
+import pandas as pd
+import datetime
+import pygame
+data_project = {
+                "Num": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+                "Project": ["Madlibs game","simple calculator","weight converter","temperatur conversion","time countdown","shopping cart","quiz game","number guessing","rock paper scissors","dice roller","bank program","slot","encryption","hangman game","alarm","pokemon info","email slicer","compund intereset calculator","concession stand","credit card validator","roman ro numeric"],
+                "Difficulty": ["2/10","5/10","5/10","5/10","6/10","7/10","6/10","6/10","9/10","9/10","7/10","9/10","6/10","8/10","7/10","6/10","4/10","5/10","4/10","5/10","10/10"]      
+                }
+df = pd.DataFrame(data_project)
+
 def madlibs():
     print("***** Madlibs Game *****")
     tempat1 = input("nama tempat: ")
@@ -55,6 +65,7 @@ def weightConverter():
         print(f"{tipe} is invalid input")
 
 def temperatureConversion():
+    print("***** Temperature converter *****")
     unit = input("what temperature is this (C/F): ")
     temp = float(input("input temperature: "))
 
@@ -68,7 +79,7 @@ def temperatureConversion():
         print(f"{unit} is not a valid input")
 
 def timeCountDown():
-    print("****** Time CountDown ******")
+    print("***** Time CountDown *****")
     timeIn = int(input("enter time in second: "))
 
     for x in range(timeIn,0,-1):
@@ -519,6 +530,28 @@ def hangMan():
             print("You lose")
             runnin = False
 
+def alarm():
+    def set_alarm(alarm_time):
+        print(f"alarm set for{alarm_time}")
+
+    onRun = True
+    while onRun:
+        sekarang = datetime.datetime.now().strftime("%H:%M:%S")
+        print(sekarang)
+
+        if sekarang == alarm_time:
+            print("WAKEY WAKEY")
+            
+            while pygame.mixer.music.get_busy():
+                time.sleep(1)
+
+            runnin = False
+        time.sleep(1)
+
+    alarm_time = input("enter the time in (HH:MM:SS): ")
+    set_alarm(alarm_time)
+
+
 def roman_2_numeric():
     print("***** Roman to number *****")
     numeral_input = input("enter the roman numeral input: ").upper()
@@ -586,7 +619,7 @@ def pokemon_info():
         print(f"Weight : {pokemon_info["weight"]}")
 
 def email_slicer():
-    print("******* Email Slicer *******")
+    print("***** Email Slicer *****")
     email = input("enter your email: ")
     username = email[:email.index("@")]
     domain = email[:email.index("@") + 1:]
@@ -618,7 +651,7 @@ def compound_interest():
     print(f"Balance after {year} year is: ${total:.2f}")
 
 def concession_stand():
-    print("--------- Concession Stand ---------")
+    print("***** Concession Stand *****")
     menu = {"pizza": 3.00,
             "nachos": 4.50,
             "popcorn": 6.00,
@@ -651,7 +684,7 @@ def concession_stand():
     print(f"\nyour total is: {total:.2f}")
 
 def credit_card_validator():
-    print("**** Credit Card Validator ****")
+    print("***** Credit Card Validator *****")
     sum_odd_digits = 0
     sum_even_digits = 0
     total = 0
@@ -667,7 +700,7 @@ def credit_card_validator():
     for x in card_number[1::2]:
         x = int(x) * 2
         if x >= 10:
-            sum_even_digits += (1(x % 10))
+            sum_even_digits += (1 + (x % 10))
         else:
             sum_even_digits += x
 
