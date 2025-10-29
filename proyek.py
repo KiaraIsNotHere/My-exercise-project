@@ -480,9 +480,9 @@ def hangMan():
                 
     def display(wrong_guesses):
         print("++++++++++++++++++")
-    for x in hang_art[wrong_guesses]:
-        print(x)
-    print("++++++++++++++++++")
+        for x in hang_art[wrong_guesses]:
+            print(x)
+        print("++++++++++++++++++")
 
     def hint_display(hint):
         print(" ".join(hint))
